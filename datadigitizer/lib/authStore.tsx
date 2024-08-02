@@ -4,13 +4,13 @@ import { create } from 'zustand';
 import { setPersistence, browserLocalPersistence } from 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDEUlKDyEMYD8hdKaanaIxsrwr7hRo1FnQ",
-  authDomain: "datadigitizer-6db81.firebaseapp.com",
-  projectId: "datadigitizer-6db81",
-  storageBucket: "datadigitizer-6db81.appspot.com",
-  messagingSenderId: "626422196571",
-  appId: "1:626422196571:web:074a9698abdf3be7fa127e",
-  measurementId: "G-YV90YD13DN"
+  apiKey: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  authDomain: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  projectId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  storageBucket: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  messagingSenderId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  appId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+  measurementId: "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 };
 
 

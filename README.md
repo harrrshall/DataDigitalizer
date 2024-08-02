@@ -1,125 +1,150 @@
+## DataDigitizer: Image Data Extraction API & Web App
 
-## Data Digitizer 
-
-This repository contains the backend code for the Data Digitizer application. The backend is built using Node.js with Express, Firebase, and Google Generative AI. It processes image files to extract data and store it as CSV files.
+This repository houses the backend and frontend code for DataDigitizer, an application designed to extract structured data from images using Google's Gemini AI models.
 
 ### Project Structure
 
 ```
-datadigitizer
 ├── backend
 │   └── server.js
 └── datadigitizer
-    └── ... (Next.js frontend code)
+    ├── lib
+    │   └── authStore.tsx
+    └── ... (other files)
 
 ```
 
-### Technologies
+### Getting Started
 
-* **Node.js**: Server-side JavaScript runtime environment.
-* **Express.js**: Web framework for building RESTful APIs.
-* **Firebase**: Backend-as-a-service platform for database, authentication, storage, and more.
-* **Google Generative AI**: AI service for image data extraction.
-* **Multer**: Middleware for handling file uploads.
-* **Sharp**: Library for image processing.
-* **Node-Cache**: In-memory caching library.
-* **cors**: Middleware for enabling Cross-Origin Resource Sharing (CORS).
-* **express-rate-limit**: Middleware for rate limiting API requests.
-
-### Setup & Installation
-
-#### 1. Firebase Setup
-
-* **Create a Firebase Project:**
-    * Visit the Firebase console ([https://console.firebase.google.com/](https://console.firebase.google.com/)) and create a new project.
-* **Enable Firebase Authentication:**
-    * In your Firebase project, go to Authentication -> Sign-in method and enable the desired authentication methods (e.g., Email/Password, Google Sign-in).
-* **Create a Firebase Storage Bucket:**
-    * In your Firebase project, go to Storage -> Create Bucket and create a new storage bucket.
-* **Create a Firestore Database:**
-    * In your Firebase project, go to Database -> Create Database and create a new Firestore database.
-* **Download Firebase Admin SDK Credentials:**
-    * In your Firebase project, go to Settings -> Service accounts.
-    * Click on "Generate new private key" to download a JSON file containing your Firebase Admin SDK credentials.
-    * **Important:** Place this JSON file in the `backend` folder of your project, renaming it to `datadigitizer-6db81-firebase-adminsdk-fl0iq-a9ab5e72da.json` (you can adjust this name).
-
-#### 2. Download and Install Dependencies
-
-* **Clone the repository:** Clone the repository to your local machine:
-
+1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-username/datadigitizer.git
+   git clone https://github.com/your-username/DataDigitizer.git
+   ```
+2. **Navigate to the project directory:**
+   ```bash
+   cd DataDigitizer
    ```
 
-* **Navigate to the backend directory:**
+### Setup and Installation
 
+#### Backend:
+
+1. **Navigate to the backend directory:**
    ```bash
-   cd datadigitizer/backend
+   cd backend
    ```
-
-* **Install dependencies:**
-
+2. **Dependencies:**
    ```bash
-   npm install
+   npm install express multer firebase-admin @google/generative-ai cors uuid express-rate-limit sharp node-cache dotenv
    ```
-
-#### 3. Configure Environment Variables
-
-* Create a `.env` file in the backend directory and add the following environment variables:
-
+3. **Firebase Setup:**
+   - Create a Firebase project and enable the following features:
+      - Authentication (Email/Password)
+      - Firestore Database
+      - Cloud Storage
+   - Create a service account and download the JSON file (`serviceAccount.json`). Place this file in the `backend` directory.
+   - Replace the placeholders in `datadigitizer-6db81-firebase-adminsdk-fl0iq-a9ab5e72da.json` with your actual Firebase project configuration.
+4. **Environment Variables:**
+   - Create a `.env` file in the `backend` directory.
+   - Add the following environment variables:
      ```
-     GEMINI_API_KEY=YOUR_GEMINI_API_KEY
-     ALLOWED_ORIGIN=YOUR_ALLOWED_ORIGIN
+     ALLOWED_ORIGIN=http://localhost:3000
+     GEMINI_API_KEY=YOUR_GEMINI_API_KEY 
      ```
-
-   * Replace `YOUR_GEMINI_API_KEY` with your actual Gemini API key.
-   * Replace `YOUR_ALLOWED_ORIGIN` with the allowed origin for CORS (e.g., `http://localhost:3000` if you are using a local Next.js development server).
-
-#### 4. Start the Server
-
+5. **Run the Server:**
    ```bash
-   npm start
+   node server.js
    ```
 
-### API Endpoints
+#### Frontend:
 
-* `/userHistory`: Fetches the user's processing history.
-   * **Method**: GET
-   * **Authentication**: Requires a valid Firebase ID token in the `Authorization` header.
-   * **Query parameters**:
-     * `page`: The page number for pagination. Default is 1.
-     * `limit`: The number of items per page. Default is 10.
-   * **Response**: JSON object containing an array of processed images.
-
-* `/processImage`: Processes an uploaded image.
-   * **Method**: POST
-   * **Authentication**: Requires a valid Firebase ID token in the `Authorization` header.
-   * **Body**: Multipart form data with an `image` field containing the image file.
-   * **Response**: JSON object containing the processing results, including:
-     * `docId`: The Firestore document ID of the processed image.
-     * `preview`: A preview of the extracted data.
-     * `csvUrl`: The download URL for the generated CSV file.
-     * `newCredits`: The user's remaining credits.
-     * `newTotalDocuments`: The user's total number of processed documents.
-     * `newPagesDigitized`: The user's total number of digitized pages.
-     * `totalTime`: The total time taken for processing.
+1. **Navigate to the frontend directory:**
+   ```bash
+   cd ../datadigitizer 
+   ```
+2. **Dependencies:**
+   ```bash
+   npm install firebase @firebase/app @firebase/auth zustand
+   ```
+3. **Firebase Configuration:**
+   - Replace the placeholders in `datadigitizer/lib/authStore.tsx` with your actual Firebase project configuration:
+     ```javascript
+     const firebaseConfig = {
+       apiKey: "YOUR_API_KEY",
+       authDomain: "YOUR_AUTH_DOMAIN",
+       projectId: "YOUR_PROJECT_ID",
+       storageBucket: "YOUR_STORAGE_BUCKET",
+       messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+       appId: "YOUR_APP_ID",
+       measurementId: "YOUR_MEASUREMENT_ID"
+     };
+     ```
+4. **Run the Development Server:**
+   ```bash
+   npm run dev
+   ```
 
 ### Usage
 
-* **Frontend Integration**: The backend API can be used by the Next.js frontend to upload images, process them, and retrieve results.
-* **Authentication**: The backend uses Firebase authentication to verify user identities. The frontend should implement Firebase authentication and pass the ID token to the backend API.
-* **Credit System**: The backend implements a credit system to track user usage. Each image processing request consumes one credit.
+1. **Authentication:**
+   - Navigate to the DataDigitizer web app.
+   - Click on "Sign Up" or "Sign In" to create an account or login.
+2. **Image Upload:**
+   - Upload an image containing structured data.
+   - The app will process the image using the Gemini AI API and extract the data.
+3. **CSV Download:**
+   - Once the processing is complete, you can download the extracted data as a CSV file.
+4. **User History:**
+   - Access your previous image processing results in the "History" tab.
+
+### API Endpoints
+
+#### `/processImage` (POST)
+
+- **Request Body:**
+   - `image`: Base64-encoded image data.
+- **Headers:**
+   - `Authorization`: Firebase ID token.
+- **Response Body:**
+   - `docId`: Document ID in Firestore.
+   - `preview`: Preview of the extracted CSV data.
+   - `csvUrl`: URL to download the extracted CSV data.
+   - `newCredits`: Remaining credits after processing the image.
+   - `newTotalDocuments`: Total number of documents processed by the user.
+   - `newPagesDigitized`: Total number of pages digitized by the user.
+   - `totalTime`: Time taken for processing the image in milliseconds.
+- **Error Codes:**
+   - `400`: Invalid image format or no file uploaded.
+   - `401`: Unauthorized or invalid token.
+   - `403`: Insufficient credits.
+   - `429`: API quota exceeded.
+   - `500`: Internal server error.
+
+#### `/userHistory` (GET)
+
+- **Headers:**
+   - `Authorization`: Firebase ID token.
+- **Query Parameters:**
+   - `page`: Page number (optional, default: 1).
+   - `limit`: Number of items per page (optional, default: 10).
+- **Response Body:**
+   - `history`: Array of processed image objects.
 
 ### Notes
 
-* **Rate Limiting**: The backend implements rate limiting to prevent abuse and ensure fair usage.
-* **Caching**: User history is cached to improve performance.
-* **Error Handling**: The backend includes error handling to ensure robust operation.
+- **Credits:** Users start with a limited number of free credits for image processing.
+- **Gemini AI Models:** The application uses Google's Gemini AI models (flash and pro) to extract data from images.
+- **Caching:** The user history is cached for improved performance.
+- **Rate Limiting:** The API implements rate limiting to prevent abuse.
+- **Error Handling:** The API provides informative error messages and HTTP status codes.
 
-### Contribution
+### Contributing
 
-Contributions are welcome! Feel free to submit pull requests for bug fixes, features, or improvements. 
+Contributions are welcome! Please open an issue or submit a pull request for any bugs, feature requests, or improvements.
 
 ### License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - 
+
+
+

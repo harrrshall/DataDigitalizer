@@ -1,4 +1,4 @@
-## DataDigitizer: Image Data Extraction API & Web App
+## DataDigitizer: Web App
 
 This repository houses the backend and frontend code for DataDigitizer, an application designed to extract structured data from images using Google's Gemini AI models.
 

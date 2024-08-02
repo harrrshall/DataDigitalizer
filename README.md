@@ -1,4 +1,5 @@
-## Data Digitizer Backend
+
+## Data Digitizer 
 
 This repository contains the backend code for the Data Digitizer application. The backend is built using Node.js with Express, Firebase, and Google Generative AI. It processes image files to extract data and store it as CSV files.
 
@@ -27,28 +28,44 @@ datadigitizer
 
 ### Setup & Installation
 
-1. **Install Node.js**: Make sure you have Node.js and npm installed on your machine.
-2. **Clone the repository**: Clone the repository to your local machine:
+#### 1. Firebase Setup
+
+* **Create a Firebase Project:**
+    * Visit the Firebase console ([https://console.firebase.google.com/](https://console.firebase.google.com/)) and create a new project.
+* **Enable Firebase Authentication:**
+    * In your Firebase project, go to Authentication -> Sign-in method and enable the desired authentication methods (e.g., Email/Password, Google Sign-in).
+* **Create a Firebase Storage Bucket:**
+    * In your Firebase project, go to Storage -> Create Bucket and create a new storage bucket.
+* **Create a Firestore Database:**
+    * In your Firebase project, go to Database -> Create Database and create a new Firestore database.
+* **Download Firebase Admin SDK Credentials:**
+    * In your Firebase project, go to Settings -> Service accounts.
+    * Click on "Generate new private key" to download a JSON file containing your Firebase Admin SDK credentials.
+    * **Important:** Place this JSON file in the `backend` folder of your project, renaming it to `datadigitizer-6db81-firebase-adminsdk-fl0iq-a9ab5e72da.json` (you can adjust this name).
+
+#### 2. Download and Install Dependencies
+
+* **Clone the repository:** Clone the repository to your local machine:
 
    ```bash
    git clone https://github.com/your-username/datadigitizer.git
    ```
 
-3. **Navigate to the backend directory**:
+* **Navigate to the backend directory:**
 
    ```bash
    cd datadigitizer/backend
    ```
 
-4. **Install dependencies**:
+* **Install dependencies:**
 
    ```bash
    npm install
    ```
 
-5. **Configure environment variables**:
+#### 3. Configure Environment Variables
 
-   * Create a `.env` file in the backend directory and add the following environment variables:
+* Create a `.env` file in the backend directory and add the following environment variables:
 
      ```
      GEMINI_API_KEY=YOUR_GEMINI_API_KEY
@@ -56,9 +73,9 @@ datadigitizer
      ```
 
    * Replace `YOUR_GEMINI_API_KEY` with your actual Gemini API key.
-   * Replace `YOUR_ALLOWED_ORIGIN` with the allowed origin for CORS.
+   * Replace `YOUR_ALLOWED_ORIGIN` with the allowed origin for CORS (e.g., `http://localhost:3000` if you are using a local Next.js development server).
 
-6. **Start the server**:
+#### 4. Start the Server
 
    ```bash
    npm start

@@ -4,7 +4,7 @@ const admin = require('firebase-admin');
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
-const rateLimit = require('express-rate-limit');
+const rateLimit = require('express-rate-limit'); 
 const sharp = require('sharp');
 const NodeCache = require('node-cache');
 
